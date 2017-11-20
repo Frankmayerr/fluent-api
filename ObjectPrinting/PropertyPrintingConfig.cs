@@ -20,6 +20,10 @@ namespace ObjectPrinting
 
 		public PrintingConfig<TOwner> Using(Func<TPropType, string> serializer)
 		{
+			if (property != null)
+				printingConfig.AddNewPropSerializing(property.Name, serializer);
+			else
+				printingConfig.AddNewTypeSerializing(typeof(TPropType), serializer);
 			return printingConfig;
 		}
 
