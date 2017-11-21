@@ -111,5 +111,21 @@ namespace ObjectPrinting.Tests
 				.PrintToString(person);
 			actual.Should().Be(expected);
 		}
+
+		[Test]
+		public void ObjectDefaultSerialixationWithConfiguration_ExcludePersonName()
+		{
+			var expected = string.Join(Environment.NewLine,
+				               "Person",
+				               "\tId = Guid",
+				               $"\tHeight = {person.Height}",
+				               $"\tAge = {person.Age}")
+			               + Environment.NewLine;
+			var actual = person.PrintToString(
+				o => o
+					.ExcludeProperty(p => p.Name)
+			);
+			actual.Should().Be(expected);
+		}
 	}
 }

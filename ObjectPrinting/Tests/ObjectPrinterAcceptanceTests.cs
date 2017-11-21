@@ -33,7 +33,10 @@ namespace ObjectPrinting.Tests
 			string s1 = printer.PrintToString(person);
 
 			//7. Синтаксический сахар в виде метода расширения, сериализующего по-умолчанию		
+			s1 = person.PrintToString();
 			//8. ...с конфигурированием
+			s1 = person.PrintToString(
+				o => o.ExcludeType<int>());
 		}
 	}
 }

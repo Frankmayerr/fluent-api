@@ -115,12 +115,12 @@ namespace ObjectPrinting
 			return new PropertyPrintingConfig<TOwner, TPropType>(this, property);
 		}
 
-		public void AddNewTypeSerializing(Type type, Delegate serializer)
+		internal void AddNewTypeSerializing(Type type, Delegate serializer)
 		{
 			TypesWithSpecialSerialization[type] = serializer;
 		}
 
-		public void AddNewPropSerializing(string property, Delegate serializer)
+		internal void AddNewPropSerializing(string property, Delegate serializer)
 		{
 			PropertiesWithSpecialSerialization[property] = serializer;
 		}
