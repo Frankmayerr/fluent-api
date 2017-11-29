@@ -41,10 +41,12 @@ namespace ObjectPrinting
 				typeof(DateTime), typeof(TimeSpan)
 			};
 			if (finalTypes.Contains(obj.GetType()))
+			{
 				if (obj is string str)
 					return obj.ToString().Substring(0, Math.Min(MaxLength, obj.ToString().Length)) + Environment.NewLine;
-			else
-				return obj.ToString() + Environment.NewLine;
+				else
+					return obj.ToString() + Environment.NewLine;
+			}
 
 			var identation = new string('\t', nestingLevel + 1);
 			var sb = new StringBuilder();
@@ -92,15 +94,8 @@ namespace ObjectPrinting
 		public PrintingConfig<TOwner> ExcludeProperty<TPropType>(
 			Expression<Func<TOwner, TPropType>> selector)
 		{
-			excludePropList.Add(GetPropertyName(selector));
+			excludePropList.Add(selector.GetPropertyName<TOwner, TPropType>());
 			return this;
-		}
-
-		private static string GetPropertyName<TPropType>(Expression<Func<TOwner, TPropType>> propExtractor)
-		{
-			var propInfo = ((MemberExpression)propExtractor.Body).Member as PropertyInfo;
-			return propInfo.Name;
-
 		}
 
 		public PropertyPrintingConfig<TOwner, TPropType> Print<TPropType>()
